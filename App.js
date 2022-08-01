@@ -25,8 +25,10 @@ const App = () => {
   
 
   const api = {
-    key: '96fb2b829ba232491fb9bd18e1b7bcb8',
-    baseUrl: 'http://api.weatherstack.com/',
+    // key: '96fb2b829ba232491fb9bd18e1b7bcb8',
+    key: 'a0a38a9e46874580af6212255220108',
+    // baseUrl: 'http://api.weatherstack.com/',
+    baseUrl: 'https://api.weatherapi.com/v1',
   };
 
   const fetchDataHandler = useCallback(() => {
@@ -35,7 +37,8 @@ const App = () => {
     setInput('');
     axios({
       method: 'GET',
-      url: `http://api.weatherstack.com/current?access_key=${api.key}&query=${input}`,
+      // url: `http://api.weatherstack.com/current?access_key=${api.key}&query=${input}`,
+      url: `https://api.weatherapi.com/v1/current.json?key=${api.key}&q=${input}&aqi=no`,
     })
       .then(res => {
         console.log(res.data);
@@ -54,14 +57,14 @@ const App = () => {
   },[data])
 
 function getBackgroundImg() {
-     if (`${data?.current?.weather_descriptions[0]}` === 'Snow' ) return snow;
-     else if (`${data?.current?.weather_descriptions[0]}` === 'Clear') return sunny
-     else if (`${data?.current?.weather_descriptions[0]}` === 'Sunny') return sunny
-     else if (`${data?.current?.weather_descriptions[0]}` === 'Rain' ) return rain;
-     else if (`${data?.current?.weather_descriptions[0]}` === 'Light Rain' ) return rain;
-     else if (`${data?.current?.weather_descriptions[0]}` === 'Haze' ) return haze;
-     else if (`${data?.current?.weather_descriptions[0]}` === 'Mist' ) return haze;
-     else if (`${data?.current?.weather_descriptions[0]}` === 'Partly cloudy' ) return cloud;
+     if (`${data?.current?.condition?.text}` === 'Snow' ) return snow;
+     else if (`${data?.current?.condition?.text}` === 'Clear') return sunny
+     else if (`${data?.current?.condition?.text}` === 'Sunny') return sunny
+     else if (`${data?.current?.condition?.text}` === 'Rain' ) return rain;
+     else if (`${data?.current?.condition?.text}` === 'Light Rain' ) return rain;
+     else if (`${data?.current?.condition?.text}` === 'Haze' ) return haze;
+     else if (`${data?.current?.condition?.text}` === 'Mist' ) return haze;
+     else if (`${data?.current?.condition?.text}` === 'Partly cloudy' ) return cloud;
      return weatherBack;   
 }
   
@@ -98,22 +101,12 @@ function getBackgroundImg() {
               }>{`${data?.location?.name}, ${data?.location?.country}`}</Text>
             <Text style={styles.date}>{`${data?.location?.localtime}`}</Text>
             <Text style={styles.temp}>
-              {`${Math.round(data?.current?.temperature)} °C`}
+              {`${Math.round(data?.current?.temp_c)} °C`}
             </Text>
-            {/* <Text style={styles.humidity}>{`${data?.current?.humidity}`}</Text> */}
-            {/* <View style={{}}> */}
-            {/* <Image
-                // style={styles.weatherImage}
-                source={{
-                  url: "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0006_mist.png",
-                  width: 200,
-                  height: 200,
-                }}
-              /> */}
             <Image
               style={{marginTop: 20}}
               source={{
-                uri: `${data?.current?.weather_icons}`,
+                uri: `https://${data?.current?.condition?.icon}`,
                 width: 120,
                 height: 120,
               }}
@@ -121,7 +114,7 @@ function getBackgroundImg() {
             <Text
               style={
                 styles.description
-              }>{`${data?.current?.weather_descriptions}`}</Text>
+              }>{`${data?.current?.condition?.text}`}</Text>
 
             {/* </View> */}
           </View>
