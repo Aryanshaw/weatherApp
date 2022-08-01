@@ -35,7 +35,7 @@ const App = () => {
     setInput('');
     axios({
       method: 'GET',
-      url: `http://api.weatherstack.com/current?access_key=${api.key}&query=${input}`,
+      url: `https://api.weatherstack.com/current?access_key=${api.key}&query=${input}`,
     })
       .then(res => {
         console.log(res.data);
