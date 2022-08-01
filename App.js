@@ -26,7 +26,7 @@ const App = () => {
 
   const api = {
     key: '96fb2b829ba232491fb9bd18e1b7bcb8',
-    baseUrl: 'https://api.weatherstack.com/',
+    baseUrl: 'http://api.weatherstack.com/',
   };
 
   const fetchDataHandler = useCallback(() => {
@@ -35,7 +35,7 @@ const App = () => {
     setInput('');
     axios({
       method: 'GET',
-      url: `https://api.weatherstack.com/current?access_key=${api.key}&query=${input}`,
+      url: `http://api.weatherstack.com/current?access_key=${api.key}&query=${input}`,
     })
       .then(res => {
         console.log(res.data);
