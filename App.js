@@ -26,7 +26,7 @@ const App = () => {
 
   const api = {
     key: '96fb2b829ba232491fb9bd18e1b7bcb8',
-    baseUrl: 'http://api.weatherstack.com/',
+    baseUrl: 'https://api.weatherstack.com/',
   };
 
   const fetchDataHandler = useCallback(() => {
